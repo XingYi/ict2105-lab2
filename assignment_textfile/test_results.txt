@@ -1,0 +1,70 @@
+Question: At  the beginning of  each  test  case,  ensure  that any prior versions of the app are killed (How do you do this?) and not simply in background.
+
+Answer: There are 2 ways to kill an app residing in the background using the Google Nexus phone emulator.
+
+First Method - Multitasking Screen
+1) Tap on the third (square) button at the bottom right of the action bar.
+2) Swipe a recent app to the left or right of the screen and its thumbnail will disappear.
+3) Or click on the "cross" sign at the top right of the app thumbnail.
+
+Second Method - Android's Settings Screen
+1) First, open the Settings screen and tap the Apps category.
+2) Scroll down in the list, select an app, and tap the Force stop button to end the app’s running process and remove it from memory.
+
+
+Question: Write a brief explanation for why you saw these values. Then save the method invocation counts displayed for that test case in the following format:
+
+Test 1: Start ActivityOne Test
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+Explanation: 
+
+
+Test 2: Start ActivityOne Test and screen display turns off
+onCreate() calls: 1
+onStart() calls: 2
+onResume() calls: 2
+onRestart() calls: 0
+Explanation: 
+
+
+Test 3: Rotate ActivityOne Test
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+Explanation: 
+
+
+Test 4: Start ActivityTwo Test
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+Explanation: 
+
+
+Test 5: Double Rotate ActivityTwo Test  
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+Explanation: 
+
+
+Test 6: Close ActivityTwo Test  
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+Explanation: 
+
+
+Test 7: Reopen ActivityTwo Test
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+Explanation: 

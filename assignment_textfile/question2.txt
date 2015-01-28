@@ -1,0 +1,10 @@
+Question: What are the lifecycle callbacks when the back button is pressed in ActivityOne?
+
+Answer: The lifecycle callbacks are onPause(), onStop() then followed by onDestroy().
+
+
+Question: What are the lifecycle callbacks when the home button is pressed in ActivityOne?  Why?
+
+Answer: The lifecycle callbacks are onPause() and followed by onStop() but there is no onDestroy() because the activity is still stored as background in the memory.
+
+As opposed to the "Back" button, it removes (or pop) the activity from the stack memory, therefore the onDestroy() method is called.
