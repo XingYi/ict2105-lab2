@@ -82,12 +82,11 @@ public class ActivityOne extends Activity {
 			// Restore value of counters from saved state
 			// Only need 4 lines of code, one for every count variable
 
-            Bundle b = new Bundle();
             // Storing data into bundle
-            mRestart = b.getInt(RESTART_KEY);
-            mResume = b.getInt(RESUME_KEY);
-            mStart = b.getInt(START_KEY);
-            mCreate = b.getInt(CREATE_KEY);
+            mRestart = savedInstanceState.getInt(RESTART_KEY);
+            mResume = savedInstanceState.getInt(RESUME_KEY);
+            mStart = savedInstanceState.getInt(START_KEY);
+            mCreate = savedInstanceState.getInt(CREATE_KEY);
 
 		}
 
@@ -98,7 +97,8 @@ public class ActivityOne extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface via the displayCounts() method
         mCreate++;
-        mTvCreate.setText("onCreate() calls: " + mCreate);
+        //mTvCreate.setText("onCreate() calls: " + mCreate);
+        displayCounts("create");
 	}
 
 	// Lifecycle callback overrides
@@ -114,7 +114,8 @@ public class ActivityOne extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface
         mStart++;
-        mTvStart.setText("onStart() calls: " + mStart);
+        //mTvStart.setText("onStart() calls: " + mStart);
+        displayCounts("start");
 	}
 
 	@Override
@@ -128,7 +129,8 @@ public class ActivityOne extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface
         mResume++;
-        mTvResume.setText("onResume() calls: " + mResume);
+        //mTvResume.setText("onResume() calls: " + mResume);
+        displayCounts("resume");
 	}
 
     // TODO:
@@ -168,7 +170,8 @@ public class ActivityOne extends Activity {
         // Update the appropriate count variable
         // Update the user interface
         mRestart++;
-        mTvRestart.setText("onRestart() calls: " + mRestart);
+        //mTvRestart.setText("onRestart() calls: " + mRestart);
+        displayCounts("restart");
 	}
 
 	@Override
@@ -185,24 +188,53 @@ public class ActivityOne extends Activity {
 		// Save state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
 
-        // Creating Bundle object
-        Bundle b = new Bundle();
         // Storing data into bundle
-        b.putInt(RESTART_KEY, mRestart);
-        b.putInt(RESUME_KEY, mResume);
-        b.putInt(START_KEY, mStart);
-        b.putInt(CREATE_KEY, mCreate);
+        savedInstanceState.putInt(RESTART_KEY, mRestart);
+        savedInstanceState.putInt(RESUME_KEY, mResume);
+        savedInstanceState.putInt(START_KEY, mStart);
+        savedInstanceState.putInt(CREATE_KEY, mCreate);
 	}
 
 	// Updates the displayed counters
 	// This method expects that the counters and TextView variables use the
 	// names specified above
-	public void displayCounts() {
+	public void displayCounts(String lifecycleEvent) {
 
-//		mTvCreate.setText("onCreate() calls: " + mCreate);
-//		mTvStart.setText("onStart() calls: " + mStart);
-//		mTvResume.setText("onResume() calls: " + mResume);
-//		mTvRestart.setText("onRestart() calls: " + mRestart);
+        //Improved this method by adding a switch statement to update relevant textView.
+        switch (lifecycleEvent){
+
+            case "create":
+                mTvCreate.setText("onCreate() calls: " + mCreate);
+                break;
+
+            case "start":
+                mTvStart.setText("onStart() calls: " + mStart);
+                break;
+
+            case "resume":
+                mTvResume.setText("onResume() calls: " + mResume);
+                break;
+
+            case "restart":
+                mTvRestart.setText("onRestart() calls: " + mRestart);
+                break;
+
+            case "pause":
+                //Do nothing
+                break;
+
+            case "stop":
+                //Do nothing
+                break;
+
+            case "destroy":
+                //Do nothing
+                break;
+
+            default:
+                //Using Log.e for printing error related message
+                Log.e(TAG, "No such lifecycle event.");
+        }
 
 	}
 }

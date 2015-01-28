@@ -1,4 +1,4 @@
-Question: At  the beginning of  each  test  case,  ensure  that any prior versions of the app are killed (How do you do this?) and not simply in background.
+Question: At the beginning of each  test case, ensure that any prior versions of the app are killed (How do you do this?) and not simply in background.
 
 Answer: There are 2 ways to kill an app residing in the background using the Google Nexus phone emulator.
 
@@ -12,59 +12,378 @@ Second Method - Android's Settings Screen
 2) Scroll down in the list, select an app, and tap the Force stop button to end the app’s running process and remove it from memory.
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 Question: Write a brief explanation for why you saw these values. Then save the method invocation counts displayed for that test case in the following format:
 
+
+***************************************************************
 Test 1: Start ActivityOne Test
+***************************************************************
+
+- First launched ActivityOne -
+---------------------------------------------------------------
 onCreate() calls: 1
 onStart() calls: 1
 onResume() calls: 1
 onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
 Explanation: 
+The following methods are called whenever an activity is first initilised on the screen.
+
+onCreate() - This is the first callback and called when the activity is first created.
+onStart() - This callback is called when the activity becomes visible to the user.
+onResume() - This is called when the user starts interacting with the application.
+
+This method is not called because ActivityOne has not been stopped and recreated.
+onRestart() - This callback is called when the activity restarts after stopping it.
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+***************************************************************
 Test 2: Start ActivityOne Test and screen display turns off
+***************************************************************
+
+- First launched ActivityOne -
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
+- Screen display turned off -
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 0
+
+- Screen display turned on -
+---------------------------------------------------------------
 onCreate() calls: 1
 onStart() calls: 2
 onResume() calls: 2
-onRestart() calls: 0
+onRestart() calls: 1
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 0
+
 Explanation: 
+The following methods are also called whenever an activity disappears on the screen.
+
+onPause() - The paused activity does not receive user input and cannot execute any code and called when the current activity is being paused and the previous activity is being resumed.
+
+onStop() - This callback is called when the activity is no longer visible.
+
+Note that the onDestroy() is not called because the activity still resides in the memory when the screen is turned off.
+
+When the screen displayed is turned on, the onRestart(), onStart() and onResume() will be called again for the activity to appear in the foreground.
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+***************************************************************
 Test 3: Rotate ActivityOne Test
+***************************************************************
+
+- First launched ActivityOne -
+---------------------------------------------------------------
 onCreate() calls: 1
 onStart() calls: 1
 onResume() calls: 1
 onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
+- Rotate the device to landscape mode -
+---------------------------------------------------------------
+onCreate() calls: 2
+onStart() calls: 2
+onResume() calls: 2
+onRestart() calls: 0
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 1
+
+- Rotate again to portrait mode -
+---------------------------------------------------------------
+onCreate() calls: 3
+onStart() calls: 3
+onResume() calls: 3
+onRestart() calls: 0
+
+onPause() calls: 2
+onStop() calls: 2
+onDestroy() calls: 2
+
 Explanation: 
+Activity will be destroyed and recreated each time the user rotates the screen. When the screen changes orientation, the system destroys and recreates the foreground activity because the screen configuration has changed and the activity might need to load alternative resources (such as the layout).
+
+Therefore, onCreate(), onStart() and onResume() are called whenever the screen is rotated. In addition, just before the screen rotates, the onPause(), onStop() and onDestory() are called before the onCreate(), onStart() and onResume() are called again to re-initialise the activity.
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+***************************************************************
 Test 4: Start ActivityTwo Test
+***************************************************************
+
+For ActivityOne
+---------------------------------------------------------------
 onCreate() calls: 1
 onStart() calls: 1
 onResume() calls: 1
 onRestart() calls: 0
-Explanation: 
 
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 0
 
-Test 5: Double Rotate ActivityTwo Test  
+For ActivityTwo
+---------------------------------------------------------------
 onCreate() calls: 1
 onStart() calls: 1
 onResume() calls: 1
 onRestart() calls: 0
-Explanation: 
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
+Explanation:
+Similar to "Test 1: Start ActivityOne Test", ActivityTwo is only first created from the previous activity when the user navigates to it. Hence, the onCreate(), onStart() and onResume() are called to initialise the activity.
 
 
-Test 6: Close ActivityTwo Test  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+***************************************************************
+Test 5: Double Rotate ActivityTwo Test
+***************************************************************
+
+- First launched ActivityOne -
+---------------------------------------------------------------
+
+For ActivityOne
+---------------------------------------------------------------
 onCreate() calls: 1
 onStart() calls: 1
 onResume() calls: 1
 onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
+
+- Intent to ActivityTwo -
+---------------------------------------------------------------
+
+For ActivityOne
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 0 <== This is not called because the activity still resides in the memory.
+
+
+For ActivityTwo
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
+- Rotate the device to landscape mode -
+---------------------------------------------------------------
+
+For ActivityTwo
+---------------------------------------------------------------
+onCreate() calls: 2
+onStart() calls: 2
+onResume() calls: 2
+onRestart() calls: 0
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 1
+
+- Rotate again to portrait mode -
+---------------------------------------------------------------
+
+For ActivityTwo
+---------------------------------------------------------------
+onCreate() calls: 3
+onStart() calls: 3
+onResume() calls: 3
+onRestart() calls: 0
+
+onPause() calls: 2
+onStop() calls: 2
+onDestroy() calls: 2
+
 Explanation: 
+Similar to "Test 3: Rotate ActivityOne Test", just before the screen rotates, the onPause(), onStop() and onDestory() are called first, then followed by the onCreate(), onStart() and onResume() are being called to re-initialise the same activity but rotated activity into the foreground.
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+***************************************************************
+Test 6: Close ActivityTwo Test
+***************************************************************
+
+- Opened ActivtyTwo from ActivityOne -
+---------------------------------------------------------------
+For ActivityTwo
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
+- Close ActivityTwo and return to ActivityOne -
+---------------------------------------------------------------
+For ActivityTwo
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 1
+
+Explanation: 
+The onCreate(), onStart() and onResume() are always called whenever an activity is loaded from the previous activity. But once the called activity returned to the previous activity, the onPause(), onStop() and onDestroy() are called to free up the activity stack (or memory).
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+***************************************************************
 Test 7: Reopen ActivityTwo Test
+***************************************************************
+
+- First time opened ActivityOne -
+---------------------------------------------------------------
+For ActivityOne
+---------------------------------------------------------------
 onCreate() calls: 1
 onStart() calls: 1
 onResume() calls: 1
 onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
+- First time opened ActivityTwo -
+---------------------------------------------------------------
+For ActivityOne
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 0
+
+---------------------------------------------------------------
+For ActivityTwo
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
+
+- First time closed ActivityTwo and returned to ActivityOne -
+---------------------------------------------------------------
+For ActivityOne
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 2
+onResume() calls: 2
+onRestart() calls: 1
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 0
+
+---------------------------------------------------------------
+For ActivityTwo
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 1
+onStop() calls: 1
+onDestroy() calls: 1
+
+- Second time opened ActivityTwo -
+---------------------------------------------------------------
+For ActivityOne
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 2
+onResume() calls: 2
+onRestart() calls: 1
+
+onPause() calls: 2
+onStop() calls: 2
+onDestroy() calls: 0
+
+---------------------------------------------------------------
+For ActivityTwo
+---------------------------------------------------------------
+onCreate() calls: 1
+onStart() calls: 1
+onResume() calls: 1
+onRestart() calls: 0
+
+onPause() calls: 0
+onStop() calls: 0
+onDestroy() calls: 0
+
 Explanation: 
+Since each activity has its own "Bundle instance state" to save information in the activity, the class variables that are defined in "ActivityTwo" are also destroyed from the memory. Hence reopening the "ActivityTwo" stated as "1" call for onCreate(), onStart() and onResume() when it was supposed to be number "2" when it was called again in the application.
+
+To resolve this issue, we could send data inside intents (eg. intent.putExtra("some_key", value); ) or use a sharedpreference.
+

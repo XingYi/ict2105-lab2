@@ -72,6 +72,7 @@ public class ActivityThree extends Activity {
         CharSequence userText = textBox.getText();
         outState.putCharSequence("savedText", userText);
 
+        Log.d(TAG, "The saved text is:" + userText);
     }
 
     protected void onRestoreInstanceState(Bundle savedState) {
@@ -87,5 +88,7 @@ public class ActivityThree extends Activity {
                 savedState.getCharSequence("savedText");
 
         textBox.setText(userText);
+
+        Log.d(TAG, "The restored text is:" + userText);
     }
 }

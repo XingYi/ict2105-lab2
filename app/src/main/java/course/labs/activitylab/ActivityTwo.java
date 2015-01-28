@@ -96,12 +96,11 @@ public class ActivityTwo extends Activity {
 			// Restore value of counters from saved state
 			// Only need 4 lines of code, one for every count variable
 
-            Bundle b = new Bundle();
             // Storing data into bundle
-            mRestart = b.getInt(RESTART_KEY);
-            mResume = b.getInt(RESUME_KEY);
-            mStart = b.getInt(START_KEY);
-            mCreate = b.getInt(CREATE_KEY);
+            mRestart = savedInstanceState.getInt(RESTART_KEY);
+            mResume = savedInstanceState.getInt(RESUME_KEY);
+            mStart = savedInstanceState.getInt(START_KEY);
+            mCreate = savedInstanceState.getInt(CREATE_KEY);
 
 		}
 
@@ -112,7 +111,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface via the displayCounts() method
         mCreate++;
-        mTvCreate.setText("onCreate() calls: " + mCreate);
+        displayCounts();
 
 	}
 
@@ -129,7 +128,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface
         mStart++;
-        mTvStart.setText("onStart() calls: " + mStart);
+        displayCounts();
 
 	}
 
@@ -144,7 +143,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface
         mResume++;
-        mTvResume.setText("onResume() calls: " + mResume);
+        displayCounts();
 	}
 
     // TODO:
@@ -184,7 +183,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface
         mRestart++;
-        mTvRestart.setText("onRestart() calls: " + mRestart);
+        displayCounts();
 
 	}
 
@@ -203,13 +202,11 @@ public class ActivityTwo extends Activity {
 		// Save counter state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
 
-        // Creating Bundle object
-        Bundle b = new Bundle();
         // Storing data into bundle
-        b.putInt(RESTART_KEY, mRestart);
-        b.putInt(RESUME_KEY, mResume);
-        b.putInt(START_KEY, mStart);
-        b.putInt(CREATE_KEY, mCreate);
+        savedInstanceState.putInt(RESTART_KEY, mRestart);
+        savedInstanceState.putInt(RESUME_KEY, mResume);
+        savedInstanceState.putInt(START_KEY, mStart);
+        savedInstanceState.putInt(CREATE_KEY, mCreate);
 
 	}
 
@@ -218,10 +215,10 @@ public class ActivityTwo extends Activity {
 	// names specified above
 	public void displayCounts() {
 
-//		mTvCreate.setText("onCreate() calls: " + mCreate);
-//		mTvStart.setText("onStart() calls: " + mStart);
-//		mTvResume.setText("onResume() calls: " + mResume);
-//		mTvRestart.setText("onRestart() calls: " + mRestart);
+		mTvCreate.setText("onCreate() calls: " + mCreate);
+		mTvStart.setText("onStart() calls: " + mStart);
+		mTvResume.setText("onResume() calls: " + mResume);
+		mTvRestart.setText("onRestart() calls: " + mRestart);
 	
 	}
 }

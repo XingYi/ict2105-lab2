@@ -35,4 +35,4 @@
         android:layout_height="wrap_content"
         android:text="@string/btnNextActivity_text"
         />
-</LinearLayout><!-- From: file:/C:/Users/Xing%20Yi/Android%20studioProjects/Lab2/app/src/main/res/layout/activity_two.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Xing%20Yi/Android%20studioProjects/ict2105-lab2/app/src/main/res/layout/activity_two.xml -->
